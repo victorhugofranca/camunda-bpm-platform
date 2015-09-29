@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.camunda.bpm.engine.impl.digest._apacheCommonsCodec.Base64;
 import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.engine.variable.type.FileValueType;
 import org.camunda.bpm.engine.variable.value.FileValue;
@@ -58,7 +57,8 @@ public class FileValueTypeImpl extends AbstractValueTypeImpl implements FileValu
       builder.file((byte[]) value);
     } else if (value instanceof String) {
       //call from REST API
-      builder.file(Base64.decodeBase64(value.toString()));
+      // TODO move function to rest api
+      // builder.file(Base64.decodeBase64(value.toString()));
     }
     if (valueInfo.containsKey(VALUE_INFO_FILE_MIME_TYPE)) {
       builder.mimeType(valueInfo.get(VALUE_INFO_FILE_MIME_TYPE).toString());
