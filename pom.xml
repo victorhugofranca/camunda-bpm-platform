@@ -42,7 +42,7 @@
         <module>javaee/jobexecutor-rar</module>
 
 
-        <module>camunda-typed-value</module>
+        <module>typed-value</module>
         <module>engine</module>
         <module>engine-cdi</module>
         <module>engine-spring</module>
@@ -82,7 +82,7 @@
 
         <module>webapps/h2-webapp</module>
 
-        <module>camunda-typed-value</module>
+        <module>typed-value</module>
         <module>engine</module>
         <module>engine-cdi</module>
         <module>engine-spring</module>
@@ -150,7 +150,7 @@
       <!-- profile for running process-engine unit tests in QA -->
       <id>check-engine</id>
       <modules>
-        <module>camunda-typed-value</module>
+        <module>typed-value</module>
         <module>engine</module>
         <module>engine-cdi</module>
         <module>engine-spring</module>
@@ -172,7 +172,7 @@
     <profile>
       <id>sonatype-oss-release</id>
       <modules>
-        <module>camunda-typed-value</module>
+        <module>typed-value</module>
         <module>engine</module>
         <module>engine-cdi</module>
         <module>engine-spring</module>
