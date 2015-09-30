@@ -12,17 +12,28 @@
  */
 package org.camunda.bpm.engine.test.api.variable;
 
-import static org.camunda.bpm.engine.variable.Variables.*;
+import static org.camunda.bpm.engine.variable.Variables.booleanValue;
+import static org.camunda.bpm.engine.variable.Variables.byteArrayValue;
+import static org.camunda.bpm.engine.variable.Variables.createVariables;
+import static org.camunda.bpm.engine.variable.Variables.dateValue;
+import static org.camunda.bpm.engine.variable.Variables.doubleValue;
+import static org.camunda.bpm.engine.variable.Variables.integerValue;
+import static org.camunda.bpm.engine.variable.Variables.localDateValue;
+import static org.camunda.bpm.engine.variable.Variables.localTimeValue;
+import static org.camunda.bpm.engine.variable.Variables.objectValue;
+import static org.camunda.bpm.engine.variable.Variables.shortValue;
+import static org.camunda.bpm.engine.variable.Variables.stringValue;
+import static org.camunda.bpm.engine.variable.Variables.untypedNullValue;
 import static org.camunda.bpm.engine.variable.type.ValueType.BOOLEAN;
 import static org.camunda.bpm.engine.variable.type.ValueType.BYTES;
 import static org.camunda.bpm.engine.variable.type.ValueType.DATE;
 import static org.camunda.bpm.engine.variable.type.ValueType.DOUBLE;
 import static org.camunda.bpm.engine.variable.type.ValueType.INTEGER;
+import static org.camunda.bpm.engine.variable.type.ValueType.LOCAL_DATE;
+import static org.camunda.bpm.engine.variable.type.ValueType.LOCAL_TIME;
 import static org.camunda.bpm.engine.variable.type.ValueType.NULL;
 import static org.camunda.bpm.engine.variable.type.ValueType.SHORT;
 import static org.camunda.bpm.engine.variable.type.ValueType.STRING;
-
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -35,22 +46,27 @@ import java.util.Map;
 
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.engine.variable.Variables.SerializationDataFormats;
 import org.camunda.bpm.engine.variable.value.BooleanValue;
 import org.camunda.bpm.engine.variable.value.BytesValue;
 import org.camunda.bpm.engine.variable.value.DateValue;
 import org.camunda.bpm.engine.variable.value.DoubleValue;
 import org.camunda.bpm.engine.variable.value.IntegerValue;
+import org.camunda.bpm.engine.variable.value.LocalDateValue;
+import org.camunda.bpm.engine.variable.value.LocalTimeValue;
 import org.camunda.bpm.engine.variable.value.ObjectValue;
 import org.camunda.bpm.engine.variable.value.ShortValue;
 import org.camunda.bpm.engine.variable.value.StringValue;
 import org.camunda.bpm.engine.variable.value.TypedValue;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Test;
 
 /**
  * @author Daniel Meyer
  *
  */
-public class VariableApiOfflineTest {
+public class VariableApiTest {
 
   private static final String STRING_VAR_NAME = "stringVariable";
   private static final String STRING_VAR_VALUE = "someString";
@@ -72,6 +88,12 @@ public class VariableApiOfflineTest {
   private static final String DATE_VAR_NAME = "dateVariable";
   private static final Date DATE_VAR_VALUE = new Date(0);
 
+  private static final String LOCAL_DATE_VAR_NAME = "localDateVariable";
+  private static final LocalDate LOCAL_DATE_VAR_VALUE = LocalDate.now();
+
+  private static final String LOCAL_TIME_VAR_NAME = "localTimeVariable";
+  private static final LocalTime LOCAL_TIME_VAR_VALUE = LocalTime.now();
+
   private static final String BYTES_VAR_NAME = "bytesVariable";
   private static final byte[] BYTES_VAR_VALUE = "a".getBytes();
 
@@ -91,6 +113,8 @@ public class VariableApiOfflineTest {
       .putValue(SHORT_VAR_NAME, SHORT_VAR_VALUE)
       .putValue(DOUBLE_VAR_NAME, DOUBLE_VAR_VALUE)
       .putValue(DATE_VAR_NAME, DATE_VAR_VALUE)
+      .putValue(LOCAL_DATE_VAR_NAME, LOCAL_DATE_VAR_VALUE)
+      .putValue(LOCAL_TIME_VAR_NAME, LOCAL_TIME_VAR_VALUE)
       .putValue(BYTES_VAR_NAME, BYTES_VAR_VALUE);
 
     assertEquals(STRING_VAR_VALUE, variables.get(STRING_VAR_NAME));
@@ -100,6 +124,8 @@ public class VariableApiOfflineTest {
     assertEquals(SHORT_VAR_VALUE, variables.get(SHORT_VAR_NAME));
     assertEquals(DOUBLE_VAR_VALUE, variables.get(DOUBLE_VAR_NAME));
     assertEquals(DATE_VAR_VALUE, variables.get(DATE_VAR_NAME));
+    assertEquals(LOCAL_DATE_VAR_VALUE, variables.get(LOCAL_DATE_VAR_NAME));
+    assertEquals(LOCAL_TIME_VAR_VALUE, variables.get(LOCAL_TIME_VAR_NAME));
     assertEquals(BYTES_VAR_VALUE, variables.get(BYTES_VAR_NAME));
 
     assertEquals(STRING_VAR_VALUE, variables.getValueTyped(STRING_VAR_NAME).getValue());
@@ -109,6 +135,8 @@ public class VariableApiOfflineTest {
     assertEquals(SHORT_VAR_VALUE, variables.getValueTyped(SHORT_VAR_NAME).getValue());
     assertEquals(DOUBLE_VAR_VALUE, variables.getValueTyped(DOUBLE_VAR_NAME).getValue());
     assertEquals(DATE_VAR_VALUE, variables.getValueTyped(DATE_VAR_NAME).getValue());
+    assertEquals(LOCAL_DATE_VAR_VALUE, variables.getValueTyped(LOCAL_DATE_VAR_NAME).getValue());
+    assertEquals(LOCAL_TIME_VAR_VALUE, variables.getValueTyped(LOCAL_TIME_VAR_NAME).getValue());
     assertEquals(BYTES_VAR_VALUE, variables.getValueTyped(BYTES_VAR_NAME).getValue());
 
     // type for untyped null is untyped null
@@ -137,6 +165,8 @@ public class VariableApiOfflineTest {
         .putValue(SHORT_VAR_NAME, shortValue(SHORT_VAR_VALUE))
         .putValue(DOUBLE_VAR_NAME, doubleValue(DOUBLE_VAR_VALUE))
         .putValue(DATE_VAR_NAME, dateValue(DATE_VAR_VALUE))
+        .putValue(LOCAL_DATE_VAR_NAME, localDateValue(LOCAL_DATE_VAR_VALUE))
+        .putValue(LOCAL_TIME_VAR_NAME, localTimeValue(LOCAL_TIME_VAR_VALUE))
         .putValue(BYTES_VAR_NAME, byteArrayValue(BYTES_VAR_VALUE));
 
     // get returns values
@@ -148,6 +178,8 @@ public class VariableApiOfflineTest {
     assertEquals(SHORT_VAR_VALUE, variables.get(SHORT_VAR_NAME));
     assertEquals(DOUBLE_VAR_VALUE, variables.get(DOUBLE_VAR_NAME));
     assertEquals(DATE_VAR_VALUE, variables.get(DATE_VAR_NAME));
+    assertEquals(LOCAL_DATE_VAR_VALUE, variables.get(LOCAL_DATE_VAR_NAME));
+    assertEquals(LOCAL_TIME_VAR_VALUE, variables.get(LOCAL_TIME_VAR_NAME));
     assertEquals(BYTES_VAR_VALUE, variables.get(BYTES_VAR_NAME));
 
     // types are not lost
@@ -159,6 +191,8 @@ public class VariableApiOfflineTest {
     assertEquals(SHORT, variables.getValueTyped(SHORT_VAR_NAME).getType());
     assertEquals(DOUBLE, variables.getValueTyped(DOUBLE_VAR_NAME).getType());
     assertEquals(DATE, variables.getValueTyped(DATE_VAR_NAME).getType());
+    assertEquals(LOCAL_DATE, variables.getValueTyped(LOCAL_DATE_VAR_NAME).getType());
+    assertEquals(LOCAL_TIME, variables.getValueTyped(LOCAL_TIME_VAR_NAME).getType());
     assertEquals(BYTES, variables.getValueTyped(BYTES_VAR_NAME).getType());
 
     // get wrappers
@@ -175,6 +209,10 @@ public class VariableApiOfflineTest {
     assertEquals(DOUBLE_VAR_VALUE, doubleValue);
     Date dateValue = variables.<DateValue>getValueTyped(DATE_VAR_NAME).getValue();
     assertEquals(DATE_VAR_VALUE, dateValue);
+    LocalDate localDateValue = variables.<LocalDateValue>getValueTyped(LOCAL_DATE_VAR_NAME).getValue();
+    assertEquals(LOCAL_DATE_VAR_VALUE, localDateValue);
+    LocalTime localTimeValue = variables.<LocalTimeValue>getValueTyped(LOCAL_TIME_VAR_NAME).getValue();
+    assertEquals(LOCAL_TIME_VAR_VALUE, localTimeValue);
     byte[] bytesValue = variables.<BytesValue>getValueTyped(BYTES_VAR_NAME).getValue();
     assertEquals(BYTES_VAR_VALUE, bytesValue);
 
@@ -191,6 +229,8 @@ public class VariableApiOfflineTest {
       .putValue(SHORT_VAR_NAME, shortValue(null))
       .putValue(DOUBLE_VAR_NAME, doubleValue(null))
       .putValue(DATE_VAR_NAME, dateValue(null))
+      .putValue(LOCAL_DATE_VAR_NAME, localDateValue(null))
+      .putValue(LOCAL_TIME_VAR_NAME, localTimeValue(null))
       .putValue(BYTES_VAR_NAME, byteArrayValue(null));
 
     // get returns values
@@ -202,6 +242,8 @@ public class VariableApiOfflineTest {
     assertEquals(null, variables.get(SHORT_VAR_NAME));
     assertEquals(null, variables.get(DOUBLE_VAR_NAME));
     assertEquals(null, variables.get(DATE_VAR_NAME));
+    assertEquals(null, variables.get(LOCAL_DATE_VAR_NAME));
+    assertEquals(null, variables.get(LOCAL_TIME_VAR_NAME));
     assertEquals(null, variables.get(BYTES_VAR_NAME));
 
     // types are not lost
@@ -213,6 +255,8 @@ public class VariableApiOfflineTest {
     assertEquals(SHORT, variables.getValueTyped(SHORT_VAR_NAME).getType());
     assertEquals(DOUBLE, variables.getValueTyped(DOUBLE_VAR_NAME).getType());
     assertEquals(DATE, variables.getValueTyped(DATE_VAR_NAME).getType());
+    assertEquals(LOCAL_DATE, variables.getValueTyped(LOCAL_DATE_VAR_NAME).getType());
+    assertEquals(LOCAL_TIME, variables.getValueTyped(LOCAL_TIME_VAR_NAME).getType());
     assertEquals(BYTES, variables.getValueTyped(BYTES_VAR_NAME).getType());
 
     // get wrappers
@@ -229,6 +273,10 @@ public class VariableApiOfflineTest {
     assertEquals(null, doubleValue);
     Date dateValue = variables.<DateValue>getValueTyped(DATE_VAR_NAME).getValue();
     assertEquals(null, dateValue);
+    LocalDate localDateValue = variables.<LocalDateValue>getValueTyped(LOCAL_DATE_VAR_NAME).getValue();
+    assertEquals(null, localDateValue);
+    LocalTime localTimeValue = variables.<LocalTimeValue>getValueTyped(LOCAL_TIME_VAR_NAME).getValue();
+    assertEquals(null, localTimeValue);
     byte[] bytesValue = variables.<BytesValue>getValueTyped(BYTES_VAR_NAME).getValue();
     assertEquals(null, bytesValue);
 

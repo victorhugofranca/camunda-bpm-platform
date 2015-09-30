@@ -15,6 +15,7 @@ package org.camunda.bpm.engine.variable.type;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.camunda.bpm.engine.impl.core.variable.type.DurationValueTypeImpl;
 import org.camunda.bpm.engine.impl.core.variable.type.FileValueTypeImpl;
 import org.camunda.bpm.engine.impl.core.variable.type.ObjectTypeImpl;
 import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.BooleanTypeImpl;
@@ -22,6 +23,8 @@ import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.Byt
 import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.DateTypeImpl;
 import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.DoubleTypeImpl;
 import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.IntegerTypeImpl;
+import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.LocalDateTypeImpl;
+import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.LocalTimeTypeImpl;
 import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.LongTypeImpl;
 import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.NullTypeImpl;
 import org.camunda.bpm.engine.impl.core.variable.type.PrimitiveValueTypeImpl.NumberTypeImpl;
@@ -54,6 +57,10 @@ public interface ValueType extends Serializable {
 
   public static final PrimitiveValueType DATE = new DateTypeImpl();
 
+  public static final PrimitiveValueType LOCAL_DATE = new LocalDateTypeImpl();
+
+  public static final PrimitiveValueType LOCAL_TIME = new LocalTimeTypeImpl();
+
   public static final PrimitiveValueType BYTES = new BytesTypeImpl();
 
   public static final PrimitiveValueType NUMBER = new NumberTypeImpl();
@@ -61,6 +68,8 @@ public interface ValueType extends Serializable {
   public static final SerializableValueType OBJECT = new ObjectTypeImpl();
 
   public static final FileValueType FILE = new FileValueTypeImpl();
+
+  public static final DurationValueType DURATION = new DurationValueTypeImpl();
 
   /**
    * Returns the name of the variable type

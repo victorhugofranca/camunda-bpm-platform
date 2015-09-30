@@ -26,11 +26,15 @@ import org.camunda.bpm.engine.variable.value.BytesValue;
 import org.camunda.bpm.engine.variable.value.DateValue;
 import org.camunda.bpm.engine.variable.value.DoubleValue;
 import org.camunda.bpm.engine.variable.value.IntegerValue;
+import org.camunda.bpm.engine.variable.value.LocalDateValue;
+import org.camunda.bpm.engine.variable.value.LocalTimeValue;
 import org.camunda.bpm.engine.variable.value.LongValue;
 import org.camunda.bpm.engine.variable.value.NumberValue;
 import org.camunda.bpm.engine.variable.value.ShortValue;
 import org.camunda.bpm.engine.variable.value.StringValue;
 import org.camunda.bpm.engine.variable.value.TypedValue;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 /**
  * Implementation of the primitive variable value types
@@ -61,6 +65,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     return true;
   }
 
+  @Override
   public String toString() {
     return "PrimitiveValueType["+getName()+"]";
   }
@@ -113,6 +118,34 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
 
   }
 
+  public static class LocalDateTypeImpl extends PrimitiveValueTypeImpl {
+
+    private static final long serialVersionUID = 1L;
+
+    public LocalDateTypeImpl() {
+      super(LocalDate.class);
+    }
+
+    public LocalDateValue createValue(Object value, Map<String, Object> valueInfo) {
+      return Variables.localDateValue((LocalDate) value);
+    }
+
+  }
+
+  public static class LocalTimeTypeImpl extends PrimitiveValueTypeImpl {
+
+    private static final long serialVersionUID = 1L;
+
+    public LocalTimeTypeImpl() {
+      super(LocalTime.class);
+    }
+
+    public LocalTimeValue createValue(Object value, Map<String, Object> valueInfo) {
+      return Variables.localTimeValue((LocalTime) value);
+    }
+
+  }
+
   public static class DoubleTypeImpl extends PrimitiveValueTypeImpl {
 
     private static final long serialVersionUID = 1L;
@@ -125,10 +158,12 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
       return Variables.doubleValue((Double) value);
     }
 
+    @Override
     public ValueType getParent() {
       return ValueType.NUMBER;
     }
 
+    @Override
     public boolean canConvertFromTypedValue(TypedValue typedValue) {
       if (typedValue.getType() != ValueType.NUMBER) {
         return false;
@@ -137,6 +172,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
       return true;
     }
 
+    @Override
     public DoubleValue convertFromTypedValue(TypedValue typedValue) {
       if (typedValue.getType() != ValueType.NUMBER) {
         throw unsupportedConversion(typedValue.getType());
@@ -163,10 +199,12 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
       return Variables.integerValue((Integer) value);
     }
 
+    @Override
     public ValueType getParent() {
       return ValueType.NUMBER;
     }
 
+    @Override
     public boolean canConvertFromTypedValue(TypedValue typedValue) {
       if (typedValue.getType() != ValueType.NUMBER) {
         return false;
@@ -186,6 +224,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
       return true;
     }
 
+    @Override
     public IntegerValue convertFromTypedValue(TypedValue typedValue) {
       if (typedValue.getType() != ValueType.NUMBER) {
         throw unsupportedConversion(typedValue.getType());
@@ -212,10 +251,12 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
       return Variables.longValue((Long) value);
     }
 
+    @Override
     public ValueType getParent() {
       return ValueType.NUMBER;
     }
 
+    @Override
     public boolean canConvertFromTypedValue(TypedValue typedValue) {
       if (typedValue.getType() != ValueType.NUMBER) {
         return false;
@@ -235,6 +276,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
       return true;
     }
 
+    @Override
     public LongValue convertFromTypedValue(TypedValue typedValue) {
       if (typedValue.getType() != ValueType.NUMBER) {
         throw unsupportedConversion(typedValue.getType());
@@ -276,10 +318,12 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
       return Variables.shortValue((Short) value);
     }
 
+    @Override
     public ValueType getParent() {
       return ValueType.NUMBER;
     }
 
+    @Override
     public ShortValue convertFromTypedValue(TypedValue typedValue) {
       if (typedValue.getType() != ValueType.NUMBER) {
         throw unsupportedConversion(typedValue.getType());
@@ -293,6 +337,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
       }
     }
 
+    @Override
     public boolean canConvertFromTypedValue(TypedValue typedValue) {
       if (typedValue.getType() != ValueType.NUMBER) {
         return false;
@@ -338,6 +383,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
       return Variables.numberValue((Number) value);
     }
 
+    @Override
     public boolean isAbstract() {
       return true;
     }

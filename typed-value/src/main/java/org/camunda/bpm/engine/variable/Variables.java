@@ -26,11 +26,14 @@ import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.By
 import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.DateValueImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.DoubleValueImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.IntegerValueImpl;
+import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.LocalDateValueImpl;
+import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.LocalTimeValueImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.LongValueImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.NumberValueImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.ShortValueImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.PrimitiveTypeValueImpl.StringValueImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.UntypedValueImpl;
+import org.camunda.bpm.engine.impl.core.variable.value.builder.DurationValueBuilderImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.builder.FileValueBuilderImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.builder.ObjectVariableBuilderImpl;
 import org.camunda.bpm.engine.impl.core.variable.value.builder.SerializedObjectValueBuilderImpl;
@@ -38,18 +41,25 @@ import org.camunda.bpm.engine.variable.value.BooleanValue;
 import org.camunda.bpm.engine.variable.value.BytesValue;
 import org.camunda.bpm.engine.variable.value.DateValue;
 import org.camunda.bpm.engine.variable.value.DoubleValue;
+import org.camunda.bpm.engine.variable.value.DurationValue;
+import org.camunda.bpm.engine.variable.value.DurationValueUnit;
 import org.camunda.bpm.engine.variable.value.FileValue;
 import org.camunda.bpm.engine.variable.value.IntegerValue;
+import org.camunda.bpm.engine.variable.value.LocalDateValue;
+import org.camunda.bpm.engine.variable.value.LocalTimeValue;
 import org.camunda.bpm.engine.variable.value.LongValue;
 import org.camunda.bpm.engine.variable.value.NumberValue;
 import org.camunda.bpm.engine.variable.value.SerializationDataFormat;
 import org.camunda.bpm.engine.variable.value.ShortValue;
 import org.camunda.bpm.engine.variable.value.StringValue;
 import org.camunda.bpm.engine.variable.value.TypedValue;
+import org.camunda.bpm.engine.variable.value.builder.DurationValueBuilder;
 import org.camunda.bpm.engine.variable.value.builder.FileValueBuilder;
 import org.camunda.bpm.engine.variable.value.builder.ObjectValueBuilder;
 import org.camunda.bpm.engine.variable.value.builder.SerializedObjectValueBuilder;
 import org.camunda.bpm.engine.variable.value.builder.TypedValueBuilder;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 /**
  * <p>This class is the entry point to the process engine's typed variables API.
@@ -168,6 +178,14 @@ public class Variables {
     return new DateValueImpl(date);
   }
 
+  public static LocalDateValue localDateValue(LocalDate localDate) {
+    return new LocalDateValueImpl(localDate);
+  }
+
+  public static LocalTimeValue localTimeValue(LocalTime localTime) {
+    return new LocalTimeValueImpl(localTime);
+  }
+
   public static LongValue longValue(Long longValue) {
     return new LongValueImpl(longValue);
   }
@@ -221,5 +239,15 @@ public class Variables {
   public static FileValue fileValue(File file){
     String contentType = MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(file);
     return new FileValueBuilderImpl(file.getName()).file(file).mimeType(contentType).create();
+  }
+
+  /**
+   * Creates a duration that is represented as number.
+   * Should be followed by {@link DurationValueBuilder#unit(DurationValueUnit)}.
+   *
+   * @see DurationValue
+   */
+  public static DurationValueBuilder durationValue(long duration) {
+    return new DurationValueBuilderImpl(duration);
   }
 }
