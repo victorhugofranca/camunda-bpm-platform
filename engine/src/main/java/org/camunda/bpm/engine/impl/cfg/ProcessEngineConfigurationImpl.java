@@ -150,6 +150,7 @@ import org.camunda.bpm.engine.impl.history.transformer.CmmnHistoryTransformListe
 import org.camunda.bpm.engine.impl.identity.ReadOnlyIdentityProvider;
 import org.camunda.bpm.engine.impl.identity.WritableIdentityProvider;
 import org.camunda.bpm.engine.impl.identity.db.DbIdentityServiceProvider;
+import org.camunda.bpm.engine.impl.incident.FailedExternalTaskIncidentHandler;
 import org.camunda.bpm.engine.impl.incident.FailedJobIncidentHandler;
 import org.camunda.bpm.engine.impl.incident.IncidentHandler;
 import org.camunda.bpm.engine.impl.interceptor.CommandContextFactory;
@@ -599,6 +600,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
       FailedJobIncidentHandler failedJobIncidentHandler = new FailedJobIncidentHandler();
       incidentHandlers.put(failedJobIncidentHandler.getIncidentHandlerType(), failedJobIncidentHandler);
+
+      FailedExternalTaskIncidentHandler failedExternalTaskIncidentHandler = new FailedExternalTaskIncidentHandler();
+      incidentHandlers.put(failedExternalTaskIncidentHandler.getIncidentHandlerType(), failedExternalTaskIncidentHandler);
     }
     if(customIncidentHandlers != null) {
       for (IncidentHandler incidentHandler : customIncidentHandlers) {
