@@ -71,6 +71,12 @@ public class NamedProcessEngineRestServiceImpl extends AbstractProcessEngineRest
   }
 
   @Override
+  @Path("/{name}" + SignalRestService.PATH)
+  public SignalRestService getSignalRestService(@PathParam("name") String engineName) {
+    return super.getSignalRestService(engineName);
+  }
+
+  @Override
   @Path("/{name}" + VariableInstanceRestService.PATH)
   public VariableInstanceRestService getVariableInstanceService(@PathParam("name") String engineName) {
     return super.getVariableInstanceService(engineName);

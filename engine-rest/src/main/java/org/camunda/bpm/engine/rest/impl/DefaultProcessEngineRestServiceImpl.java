@@ -12,130 +12,158 @@
  */
 package org.camunda.bpm.engine.rest.impl;
 
-import org.camunda.bpm.engine.rest.*;
-import org.camunda.bpm.engine.rest.history.HistoryRestService;
-
-import javax.ws.rs.Path;
 import java.net.URI;
 
+import javax.ws.rs.Path;
+
+import org.camunda.bpm.engine.rest.AuthorizationRestService;
+import org.camunda.bpm.engine.rest.CaseDefinitionRestService;
+import org.camunda.bpm.engine.rest.CaseExecutionRestService;
+import org.camunda.bpm.engine.rest.CaseInstanceRestService;
+import org.camunda.bpm.engine.rest.DecisionDefinitionRestService;
+import org.camunda.bpm.engine.rest.DeploymentRestService;
+import org.camunda.bpm.engine.rest.ExecutionRestService;
+import org.camunda.bpm.engine.rest.ExternalTaskRestService;
+import org.camunda.bpm.engine.rest.FilterRestService;
+import org.camunda.bpm.engine.rest.GroupRestService;
+import org.camunda.bpm.engine.rest.IdentityRestService;
+import org.camunda.bpm.engine.rest.IncidentRestService;
+import org.camunda.bpm.engine.rest.JobDefinitionRestService;
+import org.camunda.bpm.engine.rest.JobRestService;
+import org.camunda.bpm.engine.rest.MessageRestService;
+import org.camunda.bpm.engine.rest.MetricsRestService;
+import org.camunda.bpm.engine.rest.ProcessDefinitionRestService;
+import org.camunda.bpm.engine.rest.ProcessInstanceRestService;
+import org.camunda.bpm.engine.rest.SignalRestService;
+import org.camunda.bpm.engine.rest.TaskRestService;
+import org.camunda.bpm.engine.rest.UserRestService;
+import org.camunda.bpm.engine.rest.VariableInstanceRestService;
+import org.camunda.bpm.engine.rest.history.HistoryRestService;
+
 @Path(DefaultProcessEngineRestServiceImpl.PATH)
-public class DefaultProcessEngineRestServiceImpl extends AbstractProcessEngineRestServiceImpl {
+public class DefaultProcessEngineRestServiceImpl extends
+		AbstractProcessEngineRestServiceImpl {
 
-  public static final String PATH = "";
+	public static final String PATH = "";
 
-  @Path(ProcessDefinitionRestService.PATH)
-  public ProcessDefinitionRestService getProcessDefinitionService() {
-    return super.getProcessDefinitionService(null);
-  }
+	@Path(ProcessDefinitionRestService.PATH)
+	public ProcessDefinitionRestService getProcessDefinitionService() {
+		return super.getProcessDefinitionService(null);
+	}
 
-  @Path(ProcessInstanceRestService.PATH)
-  public ProcessInstanceRestService getProcessInstanceService() {
-    return super.getProcessInstanceService(null);
-  }
+	@Path(ProcessInstanceRestService.PATH)
+	public ProcessInstanceRestService getProcessInstanceService() {
+		return super.getProcessInstanceService(null);
+	}
 
-  @Path(ExecutionRestService.PATH)
-  public ExecutionRestService getExecutionService() {
-    return super.getExecutionService(null);
-  }
+	@Path(ExecutionRestService.PATH)
+	public ExecutionRestService getExecutionService() {
+		return super.getExecutionService(null);
+	}
 
-  @Path(TaskRestService.PATH)
-  public TaskRestService getTaskRestService() {
-    return super.getTaskRestService(null);
-  }
+	@Path(TaskRestService.PATH)
+	public TaskRestService getTaskRestService() {
+		return super.getTaskRestService(null);
+	}
 
-  @Path(IdentityRestService.PATH)
-  public IdentityRestService getIdentityRestService() {
-    return super.getIdentityRestService(null);
-  }
+	@Path(IdentityRestService.PATH)
+	public IdentityRestService getIdentityRestService() {
+		return super.getIdentityRestService(null);
+	}
 
-  @Path(MessageRestService.PATH)
-  public MessageRestService getMessageRestService() {
-    return super.getMessageRestService(null);
-  }
+	@Path(MessageRestService.PATH)
+	public MessageRestService getMessageRestService() {
+		return super.getMessageRestService(null);
+	}
 
-  @Path(VariableInstanceRestService.PATH)
-  public VariableInstanceRestService getVariableInstanceService() {
-    return super.getVariableInstanceService(null);
-  }
+	@Path(SignalRestService.PATH)
+	public SignalRestService getSignalRestService() {
+		return super.getSignalRestService(null);
+	}
 
-  @Path(JobDefinitionRestService.PATH)
-  public JobDefinitionRestService getJobDefinitionRestService() {
-    return super.getJobDefinitionRestService(null);
-  }
+	@Path(VariableInstanceRestService.PATH)
+	public VariableInstanceRestService getVariableInstanceService() {
+		return super.getVariableInstanceService(null);
+	}
 
-  @Path(JobRestService.PATH)
-  public JobRestService getJobRestService() {
-    return super.getJobRestService(null);
-  }
+	@Path(JobDefinitionRestService.PATH)
+	public JobDefinitionRestService getJobDefinitionRestService() {
+		return super.getJobDefinitionRestService(null);
+	}
 
-  @Path(GroupRestService.PATH)
-  public GroupRestService getGroupRestService() {
-    return super.getGroupRestService(null);
-  }
+	@Path(JobRestService.PATH)
+	public JobRestService getJobRestService() {
+		return super.getJobRestService(null);
+	}
 
-  @Path(UserRestService.PATH)
-  public UserRestService getUserRestService() {
-    return super.getUserRestService(null);
-  }
+	@Path(GroupRestService.PATH)
+	public GroupRestService getGroupRestService() {
+		return super.getGroupRestService(null);
+	}
 
-  @Path(AuthorizationRestService.PATH)
-  public AuthorizationRestService getAuthorizationRestService() {
-    return super.getAuthorizationRestService(null);
-  }
+	@Path(UserRestService.PATH)
+	public UserRestService getUserRestService() {
+		return super.getUserRestService(null);
+	}
 
-  @Path(IncidentRestService.PATH)
-  public IncidentRestService getIncidentService() {
-    return super.getIncidentService(null);
-  }
+	@Path(AuthorizationRestService.PATH)
+	public AuthorizationRestService getAuthorizationRestService() {
+		return super.getAuthorizationRestService(null);
+	}
 
-  @Path(HistoryRestService.PATH)
-  public HistoryRestService getHistoryRestService() {
-    return super.getHistoryRestService(null);
-  }
+	@Path(IncidentRestService.PATH)
+	public IncidentRestService getIncidentService() {
+		return super.getIncidentService(null);
+	}
 
-  @Path(DeploymentRestService.PATH)
-  public DeploymentRestService getDeploymentRestService() {
-    return super.getDeploymentRestService(null);
-  }
+	@Path(HistoryRestService.PATH)
+	public HistoryRestService getHistoryRestService() {
+		return super.getHistoryRestService(null);
+	}
 
-  @Path(CaseDefinitionRestService.PATH)
-  public CaseDefinitionRestService getCaseDefinitionRestService() {
-    return super.getCaseDefinitionRestService(null);
-  }
+	@Path(DeploymentRestService.PATH)
+	public DeploymentRestService getDeploymentRestService() {
+		return super.getDeploymentRestService(null);
+	}
 
-  @Path(CaseInstanceRestService.PATH)
-  public CaseInstanceRestService getCaseInstanceRestService() {
-    return super.getCaseInstanceRestService(null);
-  }
+	@Path(CaseDefinitionRestService.PATH)
+	public CaseDefinitionRestService getCaseDefinitionRestService() {
+		return super.getCaseDefinitionRestService(null);
+	}
 
-  @Path(CaseExecutionRestService.PATH)
-  public CaseExecutionRestService getCaseExecutionRestService() {
-    return super.getCaseExecutionRestService(null);
-  }
+	@Path(CaseInstanceRestService.PATH)
+	public CaseInstanceRestService getCaseInstanceRestService() {
+		return super.getCaseInstanceRestService(null);
+	}
 
-  @Path(FilterRestService.PATH)
-  public FilterRestService getFilterRestService() {
-    return super.getFilterRestService(null);
-  }
+	@Path(CaseExecutionRestService.PATH)
+	public CaseExecutionRestService getCaseExecutionRestService() {
+		return super.getCaseExecutionRestService(null);
+	}
 
-  @Path(MetricsRestService.PATH)
-  public MetricsRestService getMetricsRestService() {
-    return super.getMetricsRestService(null);
-  }
+	@Path(FilterRestService.PATH)
+	public FilterRestService getFilterRestService() {
+		return super.getFilterRestService(null);
+	}
 
-  @Path(DecisionDefinitionRestService.PATH)
-  public DecisionDefinitionRestService getDecisionDefinitionRestService() {
-    return super.getDecisionDefinitionRestService(null);
-  }
+	@Path(MetricsRestService.PATH)
+	public MetricsRestService getMetricsRestService() {
+		return super.getMetricsRestService(null);
+	}
 
-  @Path(ExternalTaskRestService.PATH)
-  public ExternalTaskRestService getExternalTaskRestService() {
-    return super.getExternalTaskRestService(null);
-  }
+	@Path(DecisionDefinitionRestService.PATH)
+	public DecisionDefinitionRestService getDecisionDefinitionRestService() {
+		return super.getDecisionDefinitionRestService(null);
+	}
 
-  @Override
-  protected URI getRelativeEngineUri(String engineName) {
-    // the default engine
-    return URI.create("/");
-  }
+	@Path(ExternalTaskRestService.PATH)
+	public ExternalTaskRestService getExternalTaskRestService() {
+		return super.getExternalTaskRestService(null);
+	}
+
+	@Override
+	protected URI getRelativeEngineUri(String engineName) {
+		// the default engine
+		return URI.create("/");
+	}
 }
